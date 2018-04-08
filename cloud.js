@@ -66,7 +66,8 @@ $( document ).ready(function() {
             all_char_data[attr.attr("name")] = attr.val();
         });
         let update_sheet = {};
-        update_sheet[path] = all_char_data;
+        update_sheet[user_path] = all_char_data;
+        update_sheet["sheet_name"] = $(".sheet-name").val();
         fdb.ref().update(update_sheet);
     }
 
