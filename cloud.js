@@ -6,7 +6,7 @@ $( document ).ready(function() {
 	});
 
 	var uiConfig = {
-        signInSuccessUrl: false,
+        signInSuccessUrl: "ursinewalrus.github.io",
         signInOptions: [
           // Leave the lines as is for the providers you want to offer your users.
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
