@@ -21,7 +21,6 @@ $( document ).ready(function() {
       var ui = new firebaseui.auth.AuthUI(firebase.auth());
       // The start method will wait until the DOM is loaded.
      // if (ui.isPendingRedirect()) {
-		  ui.start('#firebaseui-auth-container', uiConfig);
 	 // }
 
  firebase.auth().onAuthStateChanged(function(user) {
@@ -37,7 +36,7 @@ $( document ).ready(function() {
         var providerData = user.providerData;
         console.log(user);
       } else {
-       console.log("nope");
+          ui.start('#firebaseui-auth-container', uiConfig);
       }
   });
 
