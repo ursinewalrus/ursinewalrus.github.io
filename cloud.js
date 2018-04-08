@@ -62,13 +62,22 @@ $( document ).ready(function() {
     });
     let update_sheet = {};
     let sheet_name = $(".sheet-name").val();
+    if(sheet_name == ""){
+        alert("name the sheet");
+        return;
+    }
     update_sheet[user_path + "/sheets/" + sheet_name] = all_char_data;
     fdb.ref().update(update_sheet);
     });
 
     function get_saved_sheets(){
         fdb.ref(user_path + "/sheets").on('value',function(snapshot){
-            console.log(snapshot.val());
+            let sheets = snapshot.val()
+            sheets.forEach(function(sheet){
+                $('.sheet-select').append($("<option></option>")
+                    .attr(sheet,sheet)
+                    .text(sheet)); 
+            });
         });
 
     }
