@@ -54,26 +54,30 @@ $( document ).ready(function() {
  /* Save current sheet stats under current name */
 
     $(".sheet-save").on("click",function(){
-    let all_attrs = $(".char_attr");
-    let all_char_data = {};
-    all_attrs.map( (index) => {
-        let attr = $(all_attrs[index]);
-        all_char_data[attr.attr("name")] = attr.val();
-    });
-    let update_sheet = {};
-    let sheet_name = $(".sheet-name").val();
-    if(sheet_name == ""){
-        alert("name the sheet");
-        return;
-    }
-    update_sheet[user_path + "/sheets/" + sheet_name] = all_char_data;
-    fdb.ref().update(update_sheet);
+        let all_attrs = $(".char_attr");
+        let all_char_data = {};
+        all_attrs.map( (index) => {
+            let attr = $(all_attrs[index]);
+            all_char_data[attr.attr("name")] = attr.val();
+        });
+        let update_sheet = {};
+        let sheet_name = $(".sheet-name").val();
+        if(sheet_name == ""){
+            alert("name the sheet");
+            return;
+        }
+        update_sheet[user_path + "/sheets/" + sheet_name] = all_char_data;
+        fdb.ref().update(update_sheet);
+        alert("Saved sheet: " + sheet_name);
     });
 
     function get_saved_sheets(){
         fdb.ref(user_path + "/sheets").on('value',function(snapshot){
             let sheets = snapshot.val()
-            sheets.forEach(function(sheet){
+            if(!sheets){
+                return;
+            }
+            Object.keys(sheets).forEach(function(sheet){
                 $('.sheet-select').append($("<option></option>")
                     .attr(sheet,sheet)
                     .text(sheet)); 
