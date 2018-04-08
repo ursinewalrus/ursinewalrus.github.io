@@ -36,7 +36,7 @@ $( document ).ready(function() {
         user_path += user.uid; 
         //likely super redundant but whatever
         let update_name = {};
-        update_name[user_path] = {"display name": user.displayName};
+        update_name[user_path + "/user-info/"] = {"display name": user.displayName};
         fdb.ref().update(update_name);
         get_saved_sheets();
         // var displayName = user.displayName;
