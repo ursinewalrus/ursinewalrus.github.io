@@ -6,7 +6,7 @@ $( document ).ready(function() {
 	});
 
 	var uiConfig = {
-        signInSuccessUrl: '/',
+      //  signInSuccessUrl: '/',
         signInOptions: [
           // Leave the lines as is for the providers you want to offer your users.
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -23,5 +23,22 @@ $( document ).ready(function() {
      // if (ui.isPendingRedirect()) {
 		  ui.start('#firebaseui-auth-container', uiConfig);
 	 // }
+
+ firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log(user);
+        
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        console.log(user);
+      } else {
+       console.log("nope");
+      }
+  });
 
 });
