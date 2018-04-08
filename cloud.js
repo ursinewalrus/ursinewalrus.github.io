@@ -8,9 +8,9 @@ $( document ).ready(function() {
       authDomain: "test-game-374da.firebaseapp.com",   
       databaseURL: "https://test-game-374da.firebaseio.com/"
     });
-    
+
     fdb = firebase.database();
-    
+
     const uiConfig = {
         signInSuccessUrl: "ursinewalrus.github.io",
         signInOptions: [
@@ -29,7 +29,7 @@ $( document ).ready(function() {
      // if (ui.isPendingRedirect()) {
      // }
 
- firebase.auth().onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         console.log("logged in");    
         logged_in_user = user;   
@@ -38,6 +38,7 @@ $( document ).ready(function() {
         let update_name = {};
         update_name[user_path] = user.displayName;
         fdb.ref().update(update_name);
+        get_saved_sheets();
         // var displayName = user.displayName;
         // var email = user.email;
         // var emailVerified = user.emailVerified;
@@ -48,27 +49,28 @@ $( document ).ready(function() {
       } else {
           ui.start('#firebaseui-auth-container', uiConfig);
       }
-  });
+    });
 
  /* Save current sheet stats under current name */
 
- $(".sheet-save").on("click",function(){
-// user_time['user-activity/'+username] = {'last_checkup':Date.now(),'channel':channel};
-            // fdb.ref().update(user_time);
-    let stats = gather_stats();
- });
+    $(".sheet-save").on("click",function(){
+    let all_attrs = $(".char_attr");
+    let all_char_data = {};
+    all_attrs.map( (index) => {
+        let attr = $(all_attrs[index]);
+        all_char_data[attr.attr("name")] = attr.val();
+    });
+    let update_sheet = {};
+    let sheet_name = $(".sheet-name").val();
+    update_sheet[user_path + "/sheets/" + sheet_name] = all_char_data;
+    fdb.ref().update(update_sheet);
+    });
 
-    function gather_stats(){
-        let all_attrs = $(".char_attr");
-        let all_char_data = {};
-        all_attrs.map( (index) => {
-            let attr = $(all_attrs[index]);
-            all_char_data[attr.attr("name")] = attr.val();
+    function get_saved_sheets(){
+        fdb.ref(user_path + "/sheets").on('value',function(snapshot){
+            console.log(snapshot.val());
         });
-        let update_sheet = {};
-        update_sheet[user_path] = all_char_data;
-        update_sheet["sheet_name"] = $(".sheet-name").val();
-        fdb.ref().update(update_sheet);
+
     }
 
 });
