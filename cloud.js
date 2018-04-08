@@ -36,7 +36,7 @@ $( document ).ready(function() {
         user_path += user.uid; 
         //likely super redundant but whatever
         let update_name = {};
-        update_name[user_path] = user.displayName;
+        update_name[user_path] = {"display name": user.displayName};
         fdb.ref().update(update_name);
         get_saved_sheets();
         // var displayName = user.displayName;
@@ -63,7 +63,7 @@ $( document ).ready(function() {
         let update_sheet = {};
         let sheet_name = $(".sheet-name").val();
         if(sheet_name == ""){
-            alert("name the sheet");
+            alert("Name the sheet");
             return;
         }
         update_sheet[user_path + "/sheets/" + sheet_name] = all_char_data;
