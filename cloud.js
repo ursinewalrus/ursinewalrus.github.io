@@ -2,6 +2,7 @@ $( document ).ready(function() {
 
     let logged_in_user = null;
     let user_path = "users/";
+    let saved_sheets = {};
 
     firebase.initializeApp({
       apiKey: "AIzaSyA2QkD76en09SQFhR8ey4MD9qU9Qu2Gk60",                            
@@ -72,18 +73,23 @@ $( document ).ready(function() {
     });
 
     function get_saved_sheets(){
+        $('.sheet-select').find('option').remove().append('<option value="-1">Select</option>')
         fdb.ref(user_path + "/sheets").on('value',function(snapshot){
             let sheets = snapshot.val()
+            saved_sheets = sheets;
             if(!sheets){
                 return;
             }
             Object.keys(sheets).forEach(function(sheet){
-                $('.sheet-select').append($("<option></option>")
-                    .attr(sheet,sheet)
-                    .text(sheet)); 
+                $('.sheet-select').append($("<option value="+sheet+">"+sheet+"</option>");
             });
         });
-
     }
+
+    $('.choose-sheet').on('click',function(){
+        let selected = $('.sheet-select').val();
+        let selected_skills = saved_sheets[selected];
+        console.log(selected_skills);
+    });
 
 });
