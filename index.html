@@ -7,9 +7,13 @@
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.7.0/firebaseui.css" />
 <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="dice.js"></script>
-<script src="cloud.js"></script>
-<link rel="stylesheet" type="text/css" href="sheet.css">
+<script src="js/dice.js"></script>
+<script src="js/cloud.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="js/grid.js"></script>
+<link rel="stylesheet" type="text/css" href="css/sheet.css">
+<link rel="stylesheet" type="text/css" href="css/spectrum.css">
+
 
 </head>
  <div id="firebaseui-auth-container"></div>
@@ -18,6 +22,9 @@
         <td class="sheet-left">
             <div class="sheet-box">
                 <table class="sheet-info">
+                    <tr>
+                        <td><input type="button" class="btn export" style="display:none" value="Export"></td>
+                    </tr>
                     <tr>
                         <td><h2 class="sheet-header"></h2></td>
                     </tr>
@@ -683,7 +690,7 @@
                     </tr>
                     <tr>
                         <td><input type="text" class="char_attr" name="attr_weapon_name_1"></td>
-                        <td><input type="text" class="char_attr"name="attr_weapon_ammo_1" class="number char_attr"></td>
+                        <td><input type="text" class="char_attr" name="attr_weapon_ammo_1" class="number char_attr"></td>
                         <td><input type="text" class="char_attr" name="attr_weapon_point_blank_1" class="number char_attr"></td>
                         <td><input type="text" class="char_attr" name="attr_weapon_close_1" class="number char_attr"></td>
                         <td><input type="text" class="char_attr" name="attr_weapon_near_1" class="number char_attr"></td>
@@ -717,9 +724,25 @@
                         <td><input type="text" class="char_attr" name="attr_weapon_long_4" class="number char_attr"></td>
                         <td><input type="text" class="char_attr" name="attr_weapon_notes_4"></td>
                     </tr>
-
                 </table>
             </div>
         </td>
     </tr>
 </table>
+<div class="messenger sheet-box">
+    <div class="room-inputs">
+        Room name <input type="text" class="btn room-input room-name" placeholder=" Room Name">
+        Room password (optional) <input type="password" class="btn room-input room-password" placeholder=" Password">
+        <input type="submit" class="btn room-info-submit" value="Go To Room">
+    </div>
+    <div class="grid-area">
+        <div class="grid-inputs">
+            <div data-grid-info=""></div>
+            <div class="color-picker-div">
+                <input type='text' class='grid-square-color-picker' value='red' />
+            </div>
+            Character for grid<input type="text" class="sq-character btn" value="#">
+        </div>
+        <canvas width="400px" height="400px" class="grid-canvas"></canvas>
+    </div>
+</div>
