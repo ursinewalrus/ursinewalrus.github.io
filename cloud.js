@@ -73,7 +73,7 @@ $( document ).ready(function() {
     });
 
     function get_saved_sheets(){
-        $('.sheet-select').find('option').remove().append('<option value="-1">Select</option>')
+        $('.sheet-select').find('option').remove().append('<option value="-1">Select</option>');
         fdb.ref(user_path + "/sheets").on('value',function(snapshot){
             let sheets = snapshot.val()
             saved_sheets = sheets;
@@ -81,7 +81,7 @@ $( document ).ready(function() {
                 return;
             }
             Object.keys(sheets).forEach(function(sheet){
-                $('.sheet-select').append($("<option value="+sheet+">"+sheet+"</option>");
+                $('.sheet-select').append($("<option value="+sheet+">"+sheet+"</option>"));
             });
         });
     }
