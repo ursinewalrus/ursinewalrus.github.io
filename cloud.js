@@ -90,6 +90,7 @@ $( document ).ready(function() {
         let selected = $('.sheet-select').val();
         let selected_skills = saved_sheets[selected];
         $(".sheet-header").html(selected);
+        $(".sheet-name").val(selected);
         Object.keys(selected_skills).map ( (key) => {
             $("input[name='"+key+"']").val(selected_skills[key]);
         });
