@@ -89,7 +89,9 @@ $( document ).ready(function() {
     $('.choose-sheet').on('click',function(){
         let selected = $('.sheet-select').val();
         let selected_skills = saved_sheets[selected];
-        console.log(selected_skills);
+        Object.keys(selected_skills).map ( (key) => {
+            $("input[name='"+key+"']").val(selected_skills[key]);
+        });
     });
 
 });
