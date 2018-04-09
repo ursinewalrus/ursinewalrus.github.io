@@ -8,6 +8,7 @@ $( document ).ready(function() {
 		let points_left = points_to_distribute;
 
 		let skills = self.closest(".skill-table").find(".skill-rating");
+
 		let max_vals = self.next().val();
 
 		let skill_totals = new Array(skills.length).fill(0);
@@ -45,6 +46,8 @@ $( document ).ready(function() {
 		console.log(skill_totals.reduce((a,b)=>a+b,0) );
 		for(var i=0;i<skills.length;i++){
 			$(skills[i]).val(skill_totals[i]);
+			let name = $(skills[i]).attr("name").replace("rating","pool");
+			$("input[name='"+name+"']").val(skill_totals[i]);
 		}
 	});
 
@@ -59,5 +62,10 @@ $( document ).ready(function() {
 	    }
 	}
 
+
+	$(".lock-table").on("click",function(){
+		let self = $(this);
+		// $(this).closest(".skill-table").find(".skill-rating").prop("disabled",true);
+	});
 
 });
