@@ -1,3 +1,6 @@
+let room_name;
+let room_pass;
+
 $( document ).ready(function() {
 // https://medium.com/front-end-hacking/fun-with-firebase-security-rules-3c0304efa29 rules matching stuff
 // https://stackoverflow.com/questions/33794709/firebase-validate-with-newdata
@@ -5,6 +8,8 @@ $( document ).ready(function() {
     let logged_in_user = null;
     let user_path = "users/";
     let saved_sheets = {};
+    let room_in = null;
+
 
     firebase.initializeApp({
       apiKey: "AIzaSyA2QkD76en09SQFhR8ey4MD9qU9Qu2Gk60",                            
@@ -100,11 +105,27 @@ $( document ).ready(function() {
     });
 
     $('.room-info-submit').on("click",function(){
-        let room_name = $(".room-name");
-        let room_pass = $(".room-password");
-        fdb.child({"Name":room_name,"Password":room_pass}).once('value',function(snapshot){
-            console.log(snapshot.exists());
+        room_name = $(".room-name").val();
+        room_pass = $(".room-password").val();
+        fdb.ref("rooms/"+room_name+"/"+room_pass+"/data").on('value',function(snapshot){
+            let snap = snapshot.val();
+            if(snap){
+                //join
+                grid_matrix = JSON.parse(snap.grid);
+                update_grid();
+            }
+            else{
+                //new
+                let new_room = {};
+                new_room["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
+                fdb.ref().update(new_room);
+            }
+
         });
     });
 
 });
+//rooms
+//    RoomName
+//           password
+//                   data: 'json1'
