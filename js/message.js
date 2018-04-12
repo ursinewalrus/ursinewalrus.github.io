@@ -31,7 +31,7 @@ $( document ).ready(function() {
 			let key = fdb.ref().push().key;
 			let message_message = {};
 			message_message["rooms/"+room_name+"/"+room_pass+"/data/messages/"+key] = message;
-			//fdb.ref().update(message_message);
+			fdb.ref().update(message_message);
 		}
 	});
 
