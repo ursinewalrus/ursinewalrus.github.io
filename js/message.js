@@ -19,7 +19,7 @@ $( document ).ready(function() {
 		roll_string += " = " + roll_sum;
 		let key = fdb.ref().push().key;
 		let message_message = {};
-		message_message["rooms/"+room_name+"/"+room_pass+"/data/messages/"+"ROLL-"+key] = roll_string;
+		message_message["rooms/"+room_name+"/"+room_pass+"/data/messages/"+key+"-ROLL"] = roll_string;
 		fdb.ref().update(message_message);
 	});
 
