@@ -7,10 +7,11 @@
 <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.7.0/firebaseui.css" />
 <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="js/dice.js"></script>
+<script src="js/stats.js"></script>
 <script src="js/cloud.js"></script>
 <script src="js/spectrum.js"></script>
 <script src="js/grid.js"></script>
+<script src="js/message.js"></script>
 <link rel="stylesheet" type="text/css" href="css/sheet.css">
 <link rel="stylesheet" type="text/css" href="css/spectrum.css">
 
@@ -735,14 +736,37 @@
         Room password (optional) <input type="password" class="btn room-input room-password" placeholder=" Password">
         <input type="submit" class="btn room-info-submit" value="Go To Room">
     </div>
-    <div class="grid-area">
-        <div class="grid-inputs">
-            <div data-grid-info=""></div>
-            <div class="color-picker-div">
-                <input type='text' class='grid-square-color-picker' value='red' />
-            </div>
-            Character for grid<input type="text" class="sq-character btn" value="#">
+    <div class="grid-inputs">
+        <div data-grid-info=""></div>
+        <div class="color-picker-div">
+            <input type='text' class='grid-square-color-picker' value='red' />
         </div>
-        <canvas width="400px" height="400px" class="grid-canvas"></canvas>
+        Character for grid<input type="text" class="sq-character btn" value="#">
+        <form id="radio-grid-edit-form">
+            <input type="radio" name="edit-radio" class='edit-type' id='add-character' value='1' checked='checked'>
+            <label for='add-character'>Draw</label>
+            <input type="radio" class='edit-type' name="edit-radio" value='2' id='drag-character'>
+            <label for='drag-character'>Drag</label>
+            <input type="radio" class='edit-type' name="edit-radio" value='3' id='remove-character'>
+            <label for='remove-character'>Delete</label>
+        </form>
+    </div>
+    <div class="grid-area">
+        <div class="share-area">
+            <div class='text-display'>
+                stuff
+                <br>
+            </div>
+            <input type="text" class="text-input-area btn">
+            <div class='die-bag'>
+                <div class="d4 die"><input type='text' data-dval='4' value='1' class='btn'><span>D4</span></div>
+                <div class="d6 die"><input type='text' data-dval='6' value='1' class='btn'><span>D6</span></div>
+                <div class="d8 die"><input type='text' data-dval='8' value='1' class='btn'><span>D8</span></div>
+                <div class="d10 die"><input type='text' data-dval='10' value='1' class='btn'><span>D10</span></div>
+                <div class="d12 die"><input type='text' data-dval='12' value='1' class='btn'><span>D12</span></div>
+                <div class="d20 die"><input type='text' data-dval='20' value='1' class='btn'><span>D20</span></div>
+            </div>
+        </div>
+        <canvas width="600px" height="600px" class="grid-canvas"></canvas>
     </div>
 </div>

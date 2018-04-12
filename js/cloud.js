@@ -1,6 +1,6 @@
 let room_name;
 let room_pass;
-
+let displayName;
 $( document ).ready(function() {
 // https://medium.com/front-end-hacking/fun-with-firebase-security-rules-3c0304efa29 rules matching stuff
 // https://stackoverflow.com/questions/33794709/firebase-validate-with-newdata
@@ -47,7 +47,7 @@ $( document ).ready(function() {
         update_name[user_path + "/user-info/"] = {"display name": user.displayName};
         fdb.ref().update(update_name);
         get_saved_sheets();
-        // var displayName = user.displayName;
+        displayName = user.displayName;
         // var email = user.email;
         // var emailVerified = user.emailVerified;
         // var photoURL = user.photoURL;
