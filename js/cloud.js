@@ -104,14 +104,25 @@ $( document ).ready(function() {
         });
     });
 
+    let listener; 
     $('.room-info-submit').on("click",function(){
+        // https://stackoverflow.com/questions/30378446/how-stop-listening-to-firebase-location-in-android
+        fdb.ref("rooms/"+room_name+"/"+room_pass+"/data").off('value',listener);
         room_name = $(".room-name").val();
         room_pass = $(".room-password").val();
-        fdb.ref("rooms/"+room_name+"/"+room_pass+"/data").on('value',function(snapshot){
+        listener = fdb.ref("rooms/"+room_name+"/"+room_pass+"/data").on('value',function(snapshot){
             let snap = snapshot.val();
             if(snap){
                 //join
                 grid_matrix = JSON.parse(snap.grid);
+                let messages = snap.messages;
+                $('.text-display').text("");
+                if(messages){
+                    Object.keys(messages).forEach(function(key){
+                        $('.text-display').append(messages[key] + "<br>");
+                    });
+                }
+                // $('.text-display').text(messages);
                 update_grid();
             }
             else{

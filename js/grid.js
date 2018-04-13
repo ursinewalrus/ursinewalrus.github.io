@@ -12,7 +12,6 @@ $( document ).ready(function() {
 	canvas.on('mousedown',function(){
 		if(edit_status == 2){
 			dragging = true;
-			console.log("down");
 		}
 	});
 
@@ -139,13 +138,15 @@ $( document ).ready(function() {
 	function update_matrix(cords,color,char,clear){
 		let x = cords["x"];
 		let y = cords["y"];
-		if(clear){
+		let update_grid = {};
+		if(clear && room_name){
 			grid_matrix[x][y] = 0;
-			return;
+			update_grid["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
+        	fdb.ref().update(update_grid);
+        	return;
 		}
 		grid_matrix[x][y] = {"char":char,"color":color};
 		if(room_name){
-			let update_grid = {};
         	update_grid["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
         	fdb.ref().update(update_grid);
     	}
