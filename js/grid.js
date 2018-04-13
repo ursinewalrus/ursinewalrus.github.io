@@ -112,8 +112,24 @@ $( document ).ready(function() {
 		    ctx.fillStyle = moving_element["color"];
 			ctx.font = (grid_sq_dims * 1)+"px Georgia";
 			ctx.fillText(moving_element["char"],x,y);
-
 		}
+	});
+
+	let overCanvas = false;
+	canvas.mouseenter(function(){overCanvas=true;});
+	canvas.mouseleave(function(){overCanvas=false;});
+
+	document.addEventListener("keyup",function(e){
+		setTimeout(function(){
+			if(overCanvas){
+				let keyCode = e.keyCode;
+				console.log(keyCode);
+				if(keyCode >= 65 && keyCode<=90){
+					let char = String.fromCharCode(keyCode);
+					$('.sq-character').val(char);
+				}
+			}
+		},20);
 	});
 
 	canvas.on('mouseup',function(event){
@@ -139,7 +155,7 @@ $( document ).ready(function() {
 		let x = cords["x"];
 		let y = cords["y"];
 		let update_grid = {};
-		if(clear && room_name){
+		if(clear){
 			grid_matrix[x][y] = 0;
 			update_grid["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
         	fdb.ref().update(update_grid);
