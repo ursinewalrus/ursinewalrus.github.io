@@ -16,7 +16,9 @@ $( document ).ready(function() {
 			roll_string += " "+roll;
 			roll_sum += roll;
 		}
+		let nick = $('.nick').val();
 		roll_string += " = " + roll_sum;
+		roll_string = nick + '->' + roll_string;
 		let key = fdb.ref().push().key;
 		let message_message = {};
 		message_message["rooms/"+room_name+"/"+room_pass+"/data/messages/"+key+"ROLL"] = roll_string;
@@ -26,7 +28,8 @@ $( document ).ready(function() {
 	$('.text-input-area').on('keyup',function(e){
 		let self = $(this);
 		if(e.keyCode == 13){
-			let message = displayName+"->"+self.val();
+			let nick = $('.nick').val();
+			let message = nick+"->"+self.val();
 			self.val("");
 			let key = fdb.ref().push().key;
 			let message_message = {};

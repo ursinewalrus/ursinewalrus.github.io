@@ -154,18 +154,28 @@ $( document ).ready(function() {
 	function update_matrix(cords,color,char,clear){
 		let x = cords["x"];
 		let y = cords["y"];
-		let update_grid = {};
+		let update_canvas = {};
 		if(clear){
 			grid_matrix[x][y] = 0;
-			update_grid["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
-        	fdb.ref().update(update_grid);
+			update_canvas["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
+        	fdb.ref().update(update_canvas);
         	return;
 		}
 		grid_matrix[x][y] = {"char":char,"color":color};
 		if(room_name){
-        	update_grid["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
-        	fdb.ref().update(update_grid);
+        	update_canvas["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
+        	fdb.ref().update(update_canvas);
     	}
 	}
+
+	$('.clear-grid').on("click",function(){
+		let confirmed = confirm("Clear the grid?");
+		if(confirmed){
+			grid_matrix = (new Array(arr_dims)).fill().map(function(){return new Array(arr_dims).fill(false);});
+			update_canvas = {};
+			update_canvas["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
+        	fdb.ref().update(update_canvas);
+		}
+	});
 
 });

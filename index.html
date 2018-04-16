@@ -732,6 +732,7 @@
 </table>
 <div class="messenger sheet-box">
     <div class="room-inputs">
+        Nickname <input type="text" class="btn nick">
         Room name <input type="text" class="btn room-input room-name" placeholder=" Room Name">
         Room password (optional) <input type="password" class="btn room-input room-password" placeholder=" Password">
         <input type="submit" class="btn room-info-submit" value="Go To Room">
@@ -766,6 +767,9 @@
                 <div class="d20 die"><input type='text' data-dval='20' value='1' class='btn'><span>D20</span></div>
             </div>
         </div>
-        <canvas width="600px" height="600px" class="grid-canvas"></canvas>
+        <div class="grid-container">
+            <canvas width="600px" height="600px" class="grid-canvas"></canvas>
+            <input type="button" class="btn clear-grid" value="Clear grid">
+        </div>
     </div>
 </div>

@@ -106,7 +106,6 @@ $( document ).ready(function() {
 
     let listener; 
     $('.room-info-submit').on("click",function(){
-        // https://stackoverflow.com/questions/30378446/how-stop-listening-to-firebase-location-in-android
         fdb.ref("rooms/"+room_name+"/"+room_pass+"/data").off('value',listener);
         room_name = $(".room-name").val();
         room_pass = $(".room-password").val();
