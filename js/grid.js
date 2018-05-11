@@ -35,16 +35,16 @@ $( document ).ready(function() {
 
 
 	function draw_grid_lines(){
+		console.log("lines");
 		let W = canvas.width();
+		ctx.lineWidth = 1;
 		for(var i=grid_sq_dims;i<=canvas.width(); i+=grid_sq_dims){
 			ctx.moveTo(0,i);
 			ctx.lineTo(W,i)
-			ctx.lineWidth = 1;
 			ctx.stroke();
 
 			ctx.moveTo(i,0);
 			ctx.lineTo(i,W)
-			ctx.lineWidth = 1;
 			ctx.stroke();
 		}
 	}
@@ -71,6 +71,20 @@ $( document ).ready(function() {
 			}
 		}
 	}
+	/* export
+		for(var i=0;i<grid_matrix.length;i++){
+			var row="";
+			for(var j=0;j<grid_matrix[i].length;j++){
+				try{
+					row+=(grid_matrix[j][i]? grid_matrix[j][i].char: " ") + " ";
+		        }
+				catch(e){
+					//
+		        }
+			}
+			console.log(row);
+		}
+	*/
 
 	update_grid = function(){
 		ctx.clearRect(0,0,canvas.width(),canvas.width());
@@ -103,22 +117,6 @@ $( document ).ready(function() {
 		}
 	});
 
-	canvas.on('mousemove',function(event){
-		if(dragging){
-			let self = $(this)[0];
-			let x = event.pageX - self.offsetLeft;
-		    let y = event.pageY - self.offsetTop;
-		    update_grid();
-		    ctx.fillStyle = moving_element["color"];
-			ctx.font = (grid_sq_dims * 1)+"px Georgia";
-			ctx.fillText(moving_element["char"],x,y);
-		}
-	});
-
-	let overCanvas = false;
-	canvas.mouseenter(function(){overCanvas=true;});
-	canvas.mouseleave(function(){overCanvas=false;});
-
 	document.addEventListener("keyup",function(e){
 		setTimeout(function(){
 			if(overCanvas){
@@ -131,6 +129,31 @@ $( document ).ready(function() {
 			}
 		},20);
 	});
+	let ex_time = 0;
+	let sum = 0;
+	canvas.on('mousemove',function(event){
+		if(dragging){
+			let moment = Date.now();
+			let self = $(this)[0];
+			let x = event.pageX - self.offsetLeft;
+		    let y = event.pageY - self.offsetTop;
+		    update_grid();
+		    ctx.fillStyle = moving_element["color"];
+			ctx.font = (grid_sq_dims * 1)+"px Georgia";
+			ctx.fillText(moving_element["char"],x,y);
+			ex_time += Date.now() - moment;
+			sum++;
+			if(sum!=0 && sum%50==0){
+				console.log(ex_time/50);
+				sum=0;
+			}
+
+		}
+	});
+
+	let overCanvas = false;
+	canvas.mouseenter(function(){overCanvas=true;});
+	canvas.mouseleave(function(){overCanvas=false;});
 
 	canvas.on('mouseup',function(event){
 		if(dragging){
