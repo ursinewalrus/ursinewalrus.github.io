@@ -45,9 +45,10 @@ $( document ).ready(function() {
 
 			ctx.moveTo(i,0);
 			ctx.lineTo(i,W)
-			ctx.stroke();
 		}
 	}
+	ctx.stroke();
+
 	draw_grid_lines();
 
 
