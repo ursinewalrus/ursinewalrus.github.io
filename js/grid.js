@@ -35,7 +35,6 @@ $( document ).ready(function() {
 
 
 	function draw_grid_lines(){
-		console.log("lines");
 		let W = canvas.width();
 		ctx.lineWidth = 1;
 		for(var i=grid_sq_dims;i<=canvas.width(); i+=grid_sq_dims){
@@ -53,20 +52,15 @@ $( document ).ready(function() {
 
 	
 	function render_grid_squares(){
-		for(var x=0;x<=arr_dims;x++){
-			for(var y=0;y<=arr_dims;y++){
-				try{//tosses an error sometimes but no issue so...
-					if(grid_matrix[x][y]){ 
-						let x_cord = (x * grid_sq_dims) + grid_sq_dims * .2;
-						let y_cord = (y * (grid_sq_dims)) - grid_sq_dims * .2;
-						let char = grid_matrix[x][y]["char"];
-						ctx.fillStyle  = grid_matrix[x][y]["color"];
-						ctx.font = (grid_sq_dims * 1)+"px Georgia";
-						ctx.fillText(char,x_cord,y_cord);
-					}
-				}
-				catch(e){
-					//
+		for(var x=0;x<arr_dims;x++){
+			for(var y=0;y<arr_dims;y++){
+				if(grid_matrix[x][y]){ 
+					let x_cord = (x * grid_sq_dims) + grid_sq_dims * .2;
+					let y_cord = (y * (grid_sq_dims)) - grid_sq_dims * .2;
+					let char = grid_matrix[x][y]["char"];
+					ctx.fillStyle  = grid_matrix[x][y]["color"];
+					ctx.font = (grid_sq_dims * 1)+"px Georgia";
+					ctx.fillText(char,x_cord,y_cord);
 				}
 			}
 		}
@@ -146,6 +140,7 @@ $( document ).ready(function() {
 			if(sum!=0 && sum%50==0){
 				console.log(ex_time/50);
 				sum=0;
+				ex_time = 0;
 			}
 
 		}
