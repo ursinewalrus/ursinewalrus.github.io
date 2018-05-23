@@ -35,6 +35,7 @@ $( document ).ready(function() {
 
 
 	function draw_grid_lines(){
+		ctx.beginPath();
 		let W = canvas.width();
 		ctx.lineWidth = 1;
 		for(var i=grid_sq_dims;i<=canvas.width(); i+=grid_sq_dims){
