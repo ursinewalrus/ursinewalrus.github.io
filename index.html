@@ -744,12 +744,23 @@
         </div>
         Character for grid<input type="text" class="sq-character btn" value="#">
         <form id="radio-grid-edit-form">
-            <input type="radio" name="edit-radio" class='edit-type' id='add-character' value='1' checked='checked'>
-            <label for='add-character'>Draw</label>
+            <div class='edit-update'>
+                <div class="edit-pluralities">
+                    <input type="radio" name="edit-radio-plural" class='edit-type-plural' id='edit-character-single' value='1' checked='checked'>
+                    <label for='edit-character-single'>Single</label>
+                    <input type="radio" name="edit-radio-plural" class='edit-type-plural' id='edit-character-plural' value='2'>
+                    <label for='edit-character-plural'>Bulk</label>
+                </div>
+                <div class="edit-options">
+                    <input type="radio" name="edit-radio" class='edit-type' id='add-character' value='1' checked='checked'>
+                    <label for='add-character'>Draw</label>
+                    <input type="radio" class='edit-type' name="edit-radio" value='3' id='remove-character'>
+                    <label for='remove-character'>Delete</label>
+                </div>
+            </div>
+            |
             <input type="radio" class='edit-type' name="edit-radio" value='2' id='drag-character'>
             <label for='drag-character'>Drag</label>
-            <input type="radio" class='edit-type' name="edit-radio" value='3' id='remove-character'>
-            <label for='remove-character'>Delete</label>
         </form>
     </div>
     <div class="grid-area">

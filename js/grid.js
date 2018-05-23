@@ -8,6 +8,8 @@ $( document ).ready(function() {
 
 	let edit_status = $('input[name=edit-radio]:checked', "#radio-grid-edit-form").val();
 
+	let plural_status = $('input[name=edit-radio-plural]:checked', "#radio-grid-edit-form").val();
+
 	let dragging = false;
 	canvas.on('mousedown',function(){
 		if(edit_status == 2){
@@ -15,10 +17,24 @@ $( document ).ready(function() {
 		}
 	});
 
+	let bulk_editing = false;
+
+	canvas.on('mousedown',function(){
+		if(plural_status == 2){
+			dragging = true;
+		}
+	});
+
+
 	let moving_element;
 
 	$('.edit-type').on('click',function(){
  		edit_status = $('input[name=edit-radio]:checked', "#radio-grid-edit-form").val();
+ 		$('.edit-type-plural').prop('checked',false)
+	});
+
+	$('.edit-type-plural').on('click',function(){
+ 		plural_status = $('input[name=edit-radio-plural]:checked', "#radio-grid-edit-form").val();
 	});
 
 	const grid_sq_dims = canvas.width() / arr_dims;
@@ -93,25 +109,47 @@ $( document ).ready(function() {
 		let x = event.pageX - self.offsetLeft;
 	    let y = event.pageY - self.offsetTop;
 	    let cords = get_matrix_coords(x,y);
-		if(edit_status == 1){
+		//dragging is seperate, check for this first
+		if(edit_status == 2){//drag
+	        moving_element = grid_matrix[cords["x"]][cords["y"]];
+	        if(!moving_element){
+	        	moving_element = " ";
+	        }
+			update_matrix(cords,'filler','filler',true);
+			ctx.clearRect(0,0,canvas.width(),canvas.width());
+			update_grid();
+		}
+		else if(plural_status == 1){
+			singleEvent(cords);
+		} 
+		else if(plural_status == 2){
+			bulkEvents(cords);
+		}
+
+	});
+	function bulkEvents(cords){
+		let existing_element = grid_matrix[cords["x"]][cords["y"]];
+		if(!existing_element){
+			let color = $('.grid-square-color-picker').spectrum("get").toRgbString();
+			let char = $('.sq-character').val()[0];
+			existing_element = {"char":char,"color":color};
+		}
+		console.log(existing_element);
+	}
+	function singleEvent(cords){
+		if(edit_status == 1){//add
 	        let color = $('.grid-square-color-picker').spectrum("get").toRgbString();
 			let char = $('.sq-character').val()[0];
 	        update_matrix(cords,color,char,false);
 			ctx.clearRect(0,0,canvas.width(),canvas.width());
 			update_grid();
 		}
-		else if(edit_status == 2){
-	        moving_element = grid_matrix[cords["x"]][cords["y"]];
+		else if(edit_status == 3){//delete
 			update_matrix(cords,'filler','filler',true);
 			ctx.clearRect(0,0,canvas.width(),canvas.width());
 			update_grid();
 		}
-		else if(edit_status == 3){
-			update_matrix(cords,'filler','filler',true);
-			ctx.clearRect(0,0,canvas.width(),canvas.width());
-			update_grid();
-		}
-	});
+	}
 
 	document.addEventListener("keyup",function(e){
 		setTimeout(function(){
@@ -175,6 +213,9 @@ $( document ).ready(function() {
 		let x = cords["x"];
 		let y = cords["y"];
 		let update_canvas = {};
+		if(!char){
+			char = " ";
+		}
 		if(clear){
 			grid_matrix[x][y] = 0;
 			update_canvas["rooms/"+room_name+"/"+room_pass+"/data/grid/"] = JSON.stringify(grid_matrix);
