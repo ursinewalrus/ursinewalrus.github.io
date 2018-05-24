@@ -18,10 +18,12 @@ $( document ).ready(function() {
 	});
 
 	let bulk_editing = false;
-
+	let bulk_start_x = null;
+	let bulk_start_y = null;
+	let bulk_element = null;
 	canvas.on('mousedown',function(){
 		if(plural_status == 2){
-			dragging = true;
+			bulk_editing = true;
 		}
 	});
 
@@ -128,13 +130,15 @@ $( document ).ready(function() {
 
 	});
 	function bulkEvents(cords){
-		let existing_element = grid_matrix[cords["x"]][cords["y"]];
-		if(!existing_element){
+		bulk_start_x = cords["x"];
+		bulk_start_y = cords["y"];
+		bulk_element = grid_matrix[cords["x"]][cords["y"]];
+		if(!bulk_element){
 			let color = $('.grid-square-color-picker').spectrum("get").toRgbString();
 			let char = $('.sq-character').val()[0];
-			existing_element = {"char":char,"color":color};
+			bulk_element = {"char":char,"color":color};
 		}
-		console.log(existing_element);
+		
 	}
 	function singleEvent(cords){
 		if(edit_status == 1){//add
@@ -155,7 +159,6 @@ $( document ).ready(function() {
 		setTimeout(function(){
 			if(overCanvas){
 				let keyCode = e.keyCode;
-				console.log(keyCode);
 				if(keyCode >= 65 && keyCode<=90){
 					let char = String.fromCharCode(keyCode);
 					$('.sq-character').val(char);
@@ -191,15 +194,38 @@ $( document ).ready(function() {
 	canvas.mouseleave(function(){overCanvas=false;});
 
 	canvas.on('mouseup',function(event){
+		let self = $(this)[0];
+		let x = event.pageX - self.offsetLeft;
+	    let y = event.pageY - self.offsetTop;
 		if(dragging){
-			let self = $(this)[0];
-			let x = event.pageX - self.offsetLeft;
-		    let y = event.pageY - self.offsetTop;
 		    let cords = get_matrix_coords(x,y);
 			ctx.clearRect(0,0,canvas.width(),canvas.width());
 	        update_matrix(cords,moving_element["color"],moving_element["char"],false);
 			update_grid();
 			dragging = false;
+		}
+		if(bulk_editing){
+			bulk_element;
+			let end_cords = get_matrix_coords(x,y);
+			let top_corner_x = Math.min(end_cords['x'],bulk_start_x),
+				top_corner_y = Math.min(end_cords['y'],bulk_start_y),
+				bottom_corner_x = Math.max(end_cords['x'],bulk_start_x),
+				bottom_corner_y = Math.max(end_cords['y'],bulk_start_y);
+			for(top_corner_x; top_corner_x <= bottom_corner_x; top_corner_x++){
+
+				for(let inner_y = top_corner_y; inner_y <= bottom_corner_y; inner_y++){
+			        // refactor singleEvent so we dont need to replicate the below
+			        let del = false;
+			        if(edit_status == 3){//delete
+			        	del = true;
+			        }	
+			        update_matrix({'x':top_corner_x,'y':inner_y},bulk_element['color'],bulk_element['char'],del);
+					ctx.clearRect(0,0,canvas.width(),canvas.width());
+					update_grid()
+				}
+			}
+
+			bulk_editing = false;
 		}
 	});
 
