@@ -1,0 +1,28 @@
+{
+  "name": "dnd-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ursinewalrus/ursinewalrus.github.io.git"
+  },
+  "author": "jkk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ursinewalrus/ursinewalrus.github.io/issues"
+  },
+  "homepage": "https://github.com/ursinewalrus/ursinewalrus.github.io#readme",
+  "dependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}
