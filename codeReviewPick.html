@@ -1,1 +1,15 @@
-HI
+<div id="person"></div>
+<script>
+let people = ["Josh KK", "Nick Brandner", "Brad Matola", "Raul Vinueza", "Drew Flowers"];
+let url = window.location.href;
+try{
+	let picker = url.split("?")[1].split("=")[1];
+	let pickable_people = people.filter(person => !person.includes(picker));
+	let reviewer = pickable_people[Math.floor(Math.random()* pickable_people.length)];
+	console.log(reviewer);
+	document.getElementById("person").innerHTML = "Your reviewer is " + reviewer;
+}
+catch(e){
+	document.getElementById("person").innerHTML = "Add a query string parameter(whatever) with your name as the value";
+}
+</script>
