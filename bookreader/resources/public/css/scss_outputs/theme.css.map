@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "file": "theme.css",
+  "sources": [
+    "../../../../resources\\public\\css\\scss_resources\\theme.scss"
+  ],
+  "mappings": "AAAA,AAAA,UAAU,CAAC;EACV,MAAM,EAAC,IAAK;EACZ,YAAY,EAAE,KAAM;EACpB,YAAY,EAAE,GAAI,GAClB",
+  "names": []
+}
