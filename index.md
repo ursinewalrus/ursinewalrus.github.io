@@ -54,6 +54,9 @@
         bookString = el.target.textContent.replaceAll(" ", "");
     }
 
+    forward.touchend = () => {
+        pageNext();
+    }
     forward.onclick = () => {
         pageNext();
     }
