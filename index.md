@@ -69,8 +69,8 @@
         document.cookie =`./${bookString}/${bookString}-${page}.png`
     }
     pageSaved.onclick = () => {
-        console.log(decodeURIComponent(document.cookie).split(" "));
-        document.getElementById("pagePick").setAttribute("src", decodeURIComponent(document.cookie).split(" ")[2]);
+        console.log(decodeURIComponent(document.cookie).split(" ")[0]);
+        document.getElementById("pagePick").setAttribute("src", decodeURIComponent(document.cookie).split(" ")[0]);
     }
 </script>
 
