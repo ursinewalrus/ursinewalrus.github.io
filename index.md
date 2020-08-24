@@ -1,7 +1,11 @@
 <div id="page">
 <!--         <input id="savedPage" type="button">Saved Page </input>
         <input id="savePage" type="button">Save Page </input> -->
+        <span id="nav">
+        <input id="back" type="button" value="back"/>
         <input type="number" id="pageNumber" />
+        <input id="forward" type="button" value="forward"/>
+        </span>
         <ul id="bookSelect">
             <li>Book Of The New Sun</li> |
             <li>Fiasco</li> |
@@ -18,12 +22,24 @@
 
 <script type="text/javascript">
     let bookString = "BookOfTheNewSun";
-
     let page = 1;
+
     var clickAble = document.getElementById("pagePick");
     var pageSelect = document.getElementById("pageNumber");
     var pageSave = document.getElementById("savePage");
     var pageSaved = document.getElementById("savedPage");
+    var back = document.getElementById("back");
+    var forward = document.getElementById("forward");
+
+    if(document.cookie){
+        let p = decodeURIComponent(document.cookie).split(" ")[0];
+        document.getElementById("pagePick").setAttribute("src", p);
+        pageSelect.value = p.split("-")[1].split(".")[0];
+    }
+    else{
+        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString}-${page}.png`);
+        pageSelect.value = page;
+    }
 
     document.onkeydown = (e) => {
         if(e.keyCode == 39) {
@@ -38,10 +54,16 @@
         bookString = el.target.textContent.replaceAll(" ", "");
     }
 
+    forward.onclick = () => {
+        pageNext();
+    }
     clickAble.onclick = () => {
         pageNext();
     }
 
+    back.onClick = () => {
+        pageLast();   
+    }
     clickAble.oncontextmenu = () => {
         pageLast();   
     }
