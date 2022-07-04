@@ -51,6 +51,7 @@
     }
 
     document.getElementById("bookSelect").onclick = (el) => {
+        console.log("book selected :" + el.target.textContent)
         bookString = el.target.textContent.replaceAll(" ", "");
     }
 
