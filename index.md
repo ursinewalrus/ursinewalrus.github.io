@@ -21,7 +21,7 @@
 
 
 <script type="text/javascript">
-    let bookString = "BookOfTheNewSun";
+    let bookString = "Small Gods";
     let page = 1;
 
     var clickAble = document.getElementById("pagePick");
