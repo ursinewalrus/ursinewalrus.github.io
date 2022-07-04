@@ -21,7 +21,7 @@
 
 
 <script type="text/javascript">
-    let bookString = "Small Gods";
+    let bookString = "SmallGods";
     let page = 1;
 
     var clickAble = document.getElementById("pagePick");
@@ -37,7 +37,7 @@
         pageSelect.value = p.split("-")[1].split(".")[0];
     }
     else{
-        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString.replace(" ", "")}-${page}.png`);
+        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString}-${page}.png`);
         pageSelect.value = page;
     }
 
