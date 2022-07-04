@@ -37,7 +37,7 @@
         pageSelect.value = p.split("-")[1].split(".")[0];
     }
     else{
-        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString}-${page}.png`);
+        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString.replace(" ", "")}-${page}.png`);
         pageSelect.value = page;
     }
 
@@ -73,14 +73,14 @@
     }
     pageSelect.onchange = () => {
         page = pageSelect.value
-        console.log(`./${bookString}/${bookString}-${page}.png`);
-        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString}-${page}.png`)
+        console.log(`./${bookString}/${bookString.replace(" ", "")}-${page}.png`);
+        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString.replace(" ", "")}-${page}.png`)
     }
 
     function pageLast(){
         page--;
         pageSelect.value = page
-        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString}-${page}.png`)
+        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString.replace(" ", "")}-${page}.png`)
         return false; 
     }
 
@@ -88,11 +88,11 @@
         page++;
         pageSelect.value = page
         window.scrollTo(0, 0);
-        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString}-${page}.png`)
+        document.getElementById("pagePick").setAttribute("src", `./${bookString}/${bookString.replace(" ", "")}-${page}.png`)
     }
     pageSave.onclick = () => {
         console.log(page);
-        document.cookie =`./${bookString}/${bookString}-${page}.png`
+        document.cookie =`./${bookString}/${bookString.replace(" ", "")}-${page}.png`
     }
     pageSaved.onclick = () => {
         console.log(decodeURIComponent(document.cookie).split(" ")[0]);
